@@ -24,7 +24,7 @@ class UsuarioOut(BaseModel):
     email: str
     tipo: str
     telefono: Optional[str]
-    activo: int
+    activo: bool                    # ← era int; la columna PG es BOOLEAN
     created_at: datetime
 
     class Config:
@@ -86,7 +86,7 @@ class AnimalCreate(BaseModel):
     origen: Optional[str] = None
     fecha_ingreso: Optional[str] = None
     cond_reproductiva: Optional[str] = None
-    vacunado: int = 0
+    vacunado: bool = False              # ← era int = 0; PG rechaza int en BOOLEAN
     observaciones: Optional[str] = None
     finca_id: int
 
@@ -101,7 +101,7 @@ class AnimalUpdate(BaseModel):
     origen: Optional[str] = None
     fecha_ingreso: Optional[str] = None
     cond_reproductiva: Optional[str] = None
-    vacunado: Optional[int] = None
+    vacunado: Optional[bool] = None     # ← era Optional[int]
     observaciones: Optional[str] = None
     finca_id: Optional[int] = None
 
@@ -118,7 +118,7 @@ class AnimalOut(BaseModel):
     origen: Optional[str]
     fecha_ingreso: Optional[str]
     cond_reproductiva: Optional[str]
-    vacunado: int
+    vacunado: bool                      # ← era int
     observaciones: Optional[str]
     finca_id: int
     created_at: datetime

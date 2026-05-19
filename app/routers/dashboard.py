@@ -21,7 +21,7 @@ def obtener_estadisticas(
     saludables = animales.filter(Animal.estado.in_(["Saludable", "Vacunado"])).count()
     enfermos = animales.filter(Animal.estado == "Enfermo").count()
     en_tratamiento = animales.filter(Animal.estado == "En tratamiento").count()
-    vacunados = animales.filter(Animal.vacunado == 1).count()
+    vacunados = animales.filter(Animal.vacunado == True).count()   # ← era == 1, falla en PG BOOLEAN
 
     peso_prom = db.query(sql_func.avg(Animal.peso)).filter(
         Animal.finca_id.in_(fincas_ids)

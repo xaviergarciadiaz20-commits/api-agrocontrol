@@ -1,5 +1,5 @@
 from sqlalchemy import (
-    Column, Integer, String, Text, DECIMAL, DateTime, ForeignKey, SmallInteger
+    Column, Integer, String, Text, DECIMAL, DateTime, ForeignKey, Boolean  # ← Boolean reemplaza SmallInteger
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -15,7 +15,7 @@ class Usuario(Base):
     hashed_password = Column(String(255), nullable=False)
     tipo = Column(String(50), nullable=False, default="ganadero")
     telefono = Column(String(30), nullable=True)
-    activo = Column(SmallInteger, nullable=False, default=1)
+    activo = Column(Boolean, nullable=False, default=True)       # ← era SmallInteger, default=1
     created_at = Column(DateTime, nullable=False, server_default=func.now())
 
     fincas = relationship("Finca", back_populates="usuario", cascade="all, delete-orphan")
@@ -52,7 +52,7 @@ class Animal(Base):
     origen = Column(String(100), nullable=True)
     fecha_ingreso = Column(String(20), nullable=True)
     cond_reproductiva = Column(String(100), nullable=True)
-    vacunado = Column(SmallInteger, nullable=False, default=0)
+    vacunado = Column(Boolean, nullable=False, default=False)    # ← era SmallInteger, default=0
     observaciones = Column(Text, nullable=True)
     finca_id = Column(Integer, ForeignKey("fincas.id", ondelete="CASCADE"), nullable=False)
     created_at = Column(DateTime, nullable=False, server_default=func.now())
