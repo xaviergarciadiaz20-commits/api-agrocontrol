@@ -24,7 +24,7 @@ def registrar(data: UsuarioRegistro, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(usuario)
 
-    token = create_access_token({"sub": usuario.id})
+    token = create_access_token({"sub": str(usuario.id)})
     return Token(access_token=token, usuario=UsuarioOut.model_validate(usuario))
 
 
@@ -36,7 +36,7 @@ def login(data: UsuarioLogin, db: Session = Depends(get_db)):
     if not usuario.activo:
         raise HTTPException(status_code=403, detail="Cuenta desactivada")
 
-    token = create_access_token({"sub": usuario.id})
+    token = create_access_token({"sub": str(usuario.id)})
     return Token(access_token=token, usuario=UsuarioOut.model_validate(usuario))
 
 
